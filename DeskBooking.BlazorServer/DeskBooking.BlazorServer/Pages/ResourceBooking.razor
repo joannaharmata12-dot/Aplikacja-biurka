@@ -1,0 +1,172 @@
+﻿@page "/resource-booking/{ResourceType}/{ResourceId:int}/{ResourceName}"
+
+@inject DeskBooking.Application.Services.DeskBookingService BookingService
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+<MudPaper Class="pa-6 ma-6">
+
+    <MudText Typo="Typo.h4">
+        Rezerwacja zasobu
+    </MudText>
+
+    <MudText Typo="Typo.h6" Class="mb-4">
+        @ResourceName
+    </MudText>
+
+    <MudChip Color="Color.Primary">
+        Typ: @ResourceType
+    </MudChip>
+
+    <MudDivider Class="my-4" />
+
+    <MudTextField Label="Imię i nazwisko"
+                  @bind-Value="employeeName"
+                  Variant="Variant.Outlined"
+                  Class="mb-3" />
+
+    <MudTextField Label="Adres e-mail"
+                  @bind-Value="employeeEmail"
+                  Variant="Variant.Outlined"
+                  Class="mb-3" />
+
+    <MudDatePicker Label="Data"
+                   @bind-Date="bookingDate"
+                   MinDate="DateTime.Today"
+                   Variant="Variant.Outlined"
+                   Class="mb-3" />
+
+    <MudTimePicker Label="Od"
+                   @bind-Time="startTime"
+                   Variant="Variant.Outlined"
+                   Class="mb-3" />
+
+    <MudTimePicker Label="Do"
+                   @bind-Time="endTime"
+                   Variant="Variant.Outlined"
+                   Class="mb-3" />
+
+    <MudTextField Label="Powód / notatka"
+                  @bind-Value="note"
+                  Variant="Variant.Outlined"
+                  Lines="3"
+                  Class="mb-3" />
+
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               Class="mt-4"
+               OnClick="ReserveResource">
+        Zarezerwuj
+    </MudButton>
+
+</MudPaper>
+
+@code {
+
+    [Parameter]
+    public string ResourceType { get; set; } = string.Empty;
+
+    [Parameter]
+    public int ResourceId { get; set; }
+
+    [Parameter]
+    public string ResourceName { get; set; } = string.Empty;
+
+    private string employeeName = string.Empty;
+    private string employeeEmail = string.Empty;
+    private string note = string.Empty;
+
+    private DateTime? bookingDate = DateTime.Today;
+    private TimeSpan? startTime = new(8, 0, 0);
+    private TimeSpan? endTime = new(16, 0, 0);
+    private async Task ReserveResource()
+    {
+        if (string.IsNullOrWhiteSpace(employeeName))
+        {
+            Snackbar.Add("Podaj imię i nazwisko.", Severity.Warning);
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(employeeEmail))
+        {
+            Snackbar.Add("Podaj adres e-mail.", Severity.Warning);
+            return;
+        }
+
+        if (bookingDate == null)
+        {
+            Snackbar.Add("Wybierz datę rezerwacji.", Severity.Warning);
+            return;
+        }
+
+        if (bookingDate.Value.Date < DateTime.Today)
+        {
+            Snackbar.Add("Nie można rezerwować w przeszłości.", Severity.Warning);
+            return;
+        }
+
+        if (bookingDate.Value.DayOfWeek == DayOfWeek.Saturday || bookingDate.Value.DayOfWeek == DayOfWeek.Sunday)
+        {
+            Snackbar.Add("Nie można rezerwować w weekend.", Severity.Warning);
+            return;
+        }
+
+        if (startTime == null || endTime == null)
+        {
+            Snackbar.Add("Wybierz godzinę rozpoczęcia i zakończenia.", Severity.Warning);
+            return;
+        }
+
+        if (startTime.Value < new TimeSpan(6, 0, 0))
+        {
+            Snackbar.Add("Rezerwacja może zaczynać się najwcześniej o 06:00.", Severity.Warning);
+            return;
+        }
+
+        if (endTime.Value > new TimeSpan(24, 0, 0))
+        {
+            Snackbar.Add("Rezerwacja może kończyć się najpóźniej o 24:00.", Severity.Warning);
+            return;
+        }
+
+        if (endTime.Value <= startTime.Value)
+        {
+            Snackbar.Add("Godzina zakończenia musi być późniejsza niż godzina rozpoczęcia.", Severity.Warning);
+            return;
+        }
+
+        string date = bookingDate.Value.ToString("yyyy-MM-dd");
+
+        var success = await BookingService.BookResourceAsync(
+            ResourceType,
+            ResourceId,
+            ResourceName,
+            1,
+            employeeName,
+            employeeEmail,
+            note,
+            date,
+            startTime.Value,
+            endTime.Value);
+
+        if (success)
+        {
+            Snackbar.Add("Rezerwacja została utworzona.", Severity.Success);
+            Navigation.NavigateTo($"/?floor={floorId}&date={bookingDate:yyyy-MM-dd}&start={startTime:hh\\:mm}&end={endTime:hh\\:mm}");
+        }
+        else
+        {
+            Snackbar.Add("Ten zasób jest już zajęty w wybranych godzinach.", Severity.Error);
+        }
+    }
+    private int floorId = 1;
+    protected override void OnInitialized()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+
+        if (query.TryGetValue("floor", out var floorValue) && int.TryParse(floorValue, out var parsedFloorId))
+        {
+            floorId = parsedFloorId;
+        }
+    }
+}

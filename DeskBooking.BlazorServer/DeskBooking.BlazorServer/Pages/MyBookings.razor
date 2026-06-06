@@ -1,0 +1,261 @@
+﻿@page "/my-bookings"
+
+@inject DeskBookingService BookingService
+@inject ISnackbar Snackbar
+@inject IDialogService DialogService
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+
+    <MudText Typo="Typo.h4" GutterBottom="true">
+        Moje rezerwacje
+    </MudText>
+
+    <MudText Typo="Typo.body1" Class="mb-4">
+        Lista Twoich aktualnych i archiwalnych rezerwacji.
+    </MudText>
+    <MudCard Class="mb-4">
+        <MudCardContent>
+            <MudText Typo="Typo.h6" Class="mb-3">Filtr dat</MudText>
+
+            <MudGrid>
+                <MudItem xs="12" sm="5">
+                    <MudDatePicker Label="Data od"
+                                   @bind-Date="filterDateFrom"
+                                   Variant="Variant.Outlined" />
+                </MudItem>
+
+                <MudItem xs="12" sm="5">
+                    <MudDatePicker Label="Data do"
+                                   @bind-Date="filterDateTo"
+                                   Variant="Variant.Outlined" />
+                </MudItem>
+
+                <MudItem xs="12" sm="2" Class="d-flex align-center">
+                    <MudStack Spacing="1">
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   FullWidth="true"
+                                   OnClick="ApplyFilters">
+                            Filtruj
+                        </MudButton>
+
+                        <MudButton Variant="Variant.Text"
+                                   Color="Color.Default"
+                                   FullWidth="true"
+                                   OnClick="ClearFilters">
+                            Wyczyść
+                        </MudButton>
+                    </MudStack>
+                </MudItem>
+            </MudGrid>
+        </MudCardContent>
+    </MudCard>
+
+    <MudCard Class="mb-6">
+        <MudCardContent>
+            <MudText Typo="Typo.h5" Class="mb-3">Aktywne rezerwacje</MudText>
+
+            @if (activeBookings.Count == 0)
+            {
+                <MudAlert Severity="Severity.Info">
+                    Brak aktywnych rezerwacji.
+                </MudAlert>
+            }
+            else
+            {
+                <MudTable Items="activeBookings" Hover="true" Striped="true">
+                    <HeaderContent>
+                        <MudTh>Data</MudTh>
+                        <MudTh>Od</MudTh>
+                        <MudTh>Do</MudTh>
+                        <MudTh>Zasób</MudTh>
+                        <MudTh>Pracownik</MudTh>
+                        <MudTh>Akcja</MudTh>
+                    </HeaderContent>
+
+                    <RowTemplate>
+                        <MudTd>@context.BookingDate</MudTd>
+                        <MudTd>@context.TimeFrom.ToString(@"hh\:mm")</MudTd>
+                        <MudTd>@context.TimeTo.ToString(@"hh\:mm")</MudTd>
+                        <MudTd>
+                            @(string.IsNullOrWhiteSpace(context.ResourceName)
+                                                    ? $"Biurko {context.DeskId}"
+                                                    : context.ResourceName)
+                        </MudTd>
+                        <MudTd>
+                            @(string.IsNullOrWhiteSpace(context.EmployeeName)
+                                                    ? $"Użytkownik #{context.UserId}"
+                                                    : context.EmployeeName)
+                        </MudTd>
+                        <MudTd>
+                            <MudButton Color="Color.Error"
+                                       Variant="Variant.Text"
+                                       OnClick="@(() => CancelBooking(context.Id))">
+                                Anuluj
+                            </MudButton>
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            }
+        </MudCardContent>
+    </MudCard>
+
+    <MudCard>
+        <MudCardContent>
+            <MudText Typo="Typo.h5" Class="mb-3">Archiwalne / anulowane rezerwacje</MudText>
+
+            @if (archivedBookings.Count == 0)
+            {
+                <MudAlert Severity="Severity.Info">
+                    Brak archiwalnych rezerwacji.
+                </MudAlert>
+            }
+            else
+            {
+                <MudTable Items="archivedBookings" Hover="true" Striped="true" Dense="true">
+                    <HeaderContent>
+                        <MudTh>Data</MudTh>
+                        <MudTh>Od</MudTh>
+                        <MudTh>Do</MudTh>
+                        <MudTh>Zasób</MudTh>
+                        <MudTh>Pracownik</MudTh>
+                        <MudTh>Status</MudTh>
+                    </HeaderContent>
+
+                    <RowTemplate>
+                        <MudTd>@context.BookingDate</MudTd>
+                        <MudTd>@context.TimeFrom.ToString(@"hh\:mm")</MudTd>
+                        <MudTd>@context.TimeTo.ToString(@"hh\:mm")</MudTd>
+                        <MudTd>
+                            @(string.IsNullOrWhiteSpace(context.ResourceName)
+                                                    ? $"Biurko {context.DeskId}"
+                                                    : context.ResourceName)
+                        </MudTd>
+                        <MudTd>
+                            @(string.IsNullOrWhiteSpace(context.EmployeeName)
+                                                    ? $"Użytkownik #{context.UserId}"
+                                                    : context.EmployeeName)
+                        </MudTd>
+                        <MudTd>
+                            @if (context.Status == "Confirmed")
+                            {
+                                <MudChip Color="Color.Success" Size="Size.Small">
+                                    Aktywna
+                                </MudChip>
+                            }
+                            else if (context.Status == "Cancelled")
+                            {
+                                <MudChip Color="Color.Error" Size="Size.Small">
+                                    Anulowana
+                                </MudChip>
+                            }
+                            else
+                            {
+                                <MudChip Color="Color.Default" Size="Size.Small">
+                                    @context.Status
+                                </MudChip>
+                            }
+                        </MudTd>
+                    </RowTemplate>
+                </MudTable>
+            }
+        </MudCardContent>
+    </MudCard>
+
+</MudContainer>
+
+@code {
+    private List<DeskBooking.Domain.Entities.Booking> activeBookings = new();
+    private List<DeskBooking.Domain.Entities.Booking> archivedBookings = new();
+
+    private const int CurrentUserId = 1;
+
+    private DateTime? filterDateFrom = null;
+    private DateTime? filterDateTo = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBookings();
+    }
+
+    private async Task LoadBookings()
+    {
+        var allBookings = (await BookingService.GetBookingsByUserAsync(CurrentUserId)).ToList();
+
+        activeBookings = allBookings
+            .Where(b =>
+                b.Status == "Confirmed" &&
+                DateTime.TryParse(b.BookingDate, out var date) &&
+                date.Date >= DateTime.Today)
+            .OrderBy(b => b.BookingDate)
+            .ThenBy(b => b.TimeFrom)
+            .ToList();
+
+        archivedBookings = allBookings
+            .Where(b =>
+                b.Status != "Confirmed" ||
+                (DateTime.TryParse(b.BookingDate, out var date) && date.Date < DateTime.Today))
+            .OrderByDescending(b => b.BookingDate)
+            .ThenByDescending(b => b.TimeFrom)
+            .ToList();
+    }
+
+    private async Task CancelBooking(int bookingId)
+    {
+        bool? result = await DialogService.ShowMessageBox(
+            "Potwierdzenie anulowania",
+            "Czy na pewno chcesz anulować tę rezerwację?",
+            yesText: "Tak, anuluj",
+            cancelText: "Nie"
+        );
+
+        if (result != true)
+            return;
+
+        var success = await BookingService.CancelBookingAsync(bookingId);
+
+        if (success)
+        {
+            Snackbar.Add("Rezerwacja została anulowana.", Severity.Success);
+            await LoadBookings();
+            StateHasChanged();
+        }
+        else
+        {
+            Snackbar.Add("Nie udało się anulować rezerwacji.", Severity.Error);
+        }
+    }
+    private void ApplyFilters()
+    {
+        if (filterDateFrom.HasValue)
+        {
+            activeBookings = activeBookings
+                .Where(b => DateTime.Parse(b.BookingDate) >= filterDateFrom.Value)
+                .ToList();
+
+            archivedBookings = archivedBookings
+                .Where(b => DateTime.Parse(b.BookingDate) >= filterDateFrom.Value)
+                .ToList();
+        }
+
+        if (filterDateTo.HasValue)
+        {
+            activeBookings = activeBookings
+                .Where(b => DateTime.Parse(b.BookingDate) <= filterDateTo.Value)
+                .ToList();
+
+            archivedBookings = archivedBookings
+                .Where(b => DateTime.Parse(b.BookingDate) <= filterDateTo.Value)
+                .ToList();
+        }
+    }
+    private async Task ClearFilters()
+    {
+        filterDateFrom = null;
+        filterDateTo = null;
+
+        await LoadBookings();
+
+        StateHasChanged();
+    }
+}

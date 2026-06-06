@@ -1,0 +1,41 @@
+﻿@page "/desk-wasm/{Id:int}"
+@using DeskBooking.Domain.Entities
+
+<h3>Szczegóły biurka</h3>
+
+@if (desk == null)
+{
+    <p>Nie znaleziono biurka.</p>
+}
+else
+{
+    <div class="card p-3">
+        <h4>Biurko @desk.DeskNumber</h4>
+
+        <p><strong>ID:</strong> @desk.Id</p>
+        <p><strong>Piętro:</strong> @desk.FloorId</p>
+        <p><strong>Status:</strong> Dostępne</p>
+
+        <a class="btn btn-primary" href="/desks">Powrót do listy</a>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Desk? desk;
+
+    private List<Desk> desks = new()
+    {
+        new Desk { Id = 1001, DeskNumber = "A1", FloorId = 1 },
+        new Desk { Id = 1002, DeskNumber = "A2", FloorId = 1 },
+        new Desk { Id = 2001, DeskNumber = "A1", FloorId = 2 },
+        new Desk { Id = 3001, DeskNumber = "A1", FloorId = 3 }
+    };
+
+    protected override void OnInitialized()
+    {
+        desk = desks.FirstOrDefault(d => d.Id == Id);
+    }
+}

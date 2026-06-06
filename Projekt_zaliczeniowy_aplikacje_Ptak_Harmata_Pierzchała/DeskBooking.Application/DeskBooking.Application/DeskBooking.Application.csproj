@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DeskBooking.Domain\DeskBooking.Domain\DeskBooking.Domain.csproj" />
+    <ProjectReference Include="..\..\DeskBooking.SharedKernel\DeskBooking.SharedKernel\DeskBooking.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>

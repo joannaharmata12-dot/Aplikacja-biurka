@@ -1,0 +1,374 @@
+﻿@page "/"
+@inject DeskBooking.Application.Services.DeskBookingService BookingService
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-4">
+    <MudGrid>
+
+        <!-- LEWA KOLUMNA -->
+        <MudItem xs="12" md="4">
+            <MudCard Elevation="3" Style="border-radius: 16px; position: sticky; top: 20px;" Class="pa-4">
+                <MudCardContent>
+
+                    <MudText Typo="Typo.h4" Style="font-weight: 800; color: #1A237E;" Class="mb-2">
+                        Rezerwacja Stanowisk
+                    </MudText>
+
+                    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-4">
+                        Wybierz parametry czasu, a następnie wskaż wolne stanowisko na planie.
+                    </MudText>
+
+                    <MudDivider Class="my-4" />
+
+                    <MudSelect T="int" Label="Strefa / Piętro" @bind-Value="selectedFloorId"
+                               Variant="Variant.Outlined" Class="mb-3" AdornmentIcon="@Icons.Material.Filled.Layers">
+                        <MudSelectItem Value="0">-- Wybierz piętro --</MudSelectItem>
+                        @foreach (var floor in floors)
+                        {
+                            <MudSelectItem Value="floor.Id">@floor.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+
+                    <MudDatePicker Label="Data rezerwacji"
+                                   @bind-Date="bookingDate"
+                                   MinDate="DateTime.Today"
+                                   IsDateDisabledFunc="DisableWeekends"
+                                   Variant="Variant.Outlined"
+                                   Class="mb-3" />
+
+                    <MudGrid Class="mb-4">
+                        <MudItem xs="6">
+                            <MudTimePicker Label="Od godziny" @bind-Time="startTime" Variant="Variant.Outlined" Editable="true" />
+                        </MudItem>
+                        <MudItem xs="6">
+                            <MudTimePicker Label="Do godziny" @bind-Time="endTime" Variant="Variant.Outlined" Editable="true" />
+                        </MudItem>
+                    </MudGrid>
+
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true"
+                               OnClick="OdswiezMape" StartIcon="@Icons.Material.Filled.Refresh" Class="mb-4">
+                        Sprawdź dostępność
+                    </MudButton>
+
+                    <MudCard Elevation="0" Style="background: #F5F5F5; border-radius: 12px;" Class="pa-4">
+                        <MudText Typo="Typo.subtitle2" Style="font-weight: bold;" Class="mb-2">Legenda:</MudText>
+
+                        <div class="d-flex align-center mb-2">
+                            <MudIcon Icon="@Icons.Material.Filled.RadioButtonChecked" Color="Color.Success"
+                                     Class="mr-2" Size="Size.Small" />
+                            <MudText Typo="Typo.body2">Wolne w tych godzinach</MudText>
+                        </div>
+
+                        <div class="d-flex align-center">
+                            <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error"
+                                     Class="mr-2" Size="Size.Small" />
+                            <MudText Typo="Typo.body2">Zajęte w tych godzinach</MudText>
+                        </div>
+                    </MudCard>
+
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <!-- PRAWA KOLUMNA -->
+        <MudItem xs="12" md="8" Class="d-flex justify-center">
+
+            @if (selectedFloorId > 0)
+            {
+                <MudPaper Elevation="6" Style="background: #FFFFFF; padding: 12px; border-radius: 20px; border: 4px solid #E0E0E0;"
+                          Class="d-flex justify-center">
+
+                    <!-- MAPA -->
+                    <div style="
+                            position: relative;
+                            background-image: url('images/maps/plan.png');
+                            width: 457px;
+                            height: 1024px;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            border-radius: 12px;
+                            overflow: hidden;">
+
+                        <!-- BIURKA -->
+                        @foreach (var desk in desks)
+                        {
+                            <div style="
+                                        position: absolute;
+                                        left: @(desk.X_Coordinate)%;
+                                        top: @(desk.Y_Coordinate)%;
+                                        transform: translate(-50%, -50%);
+                                        z-index: 10;">
+                                <MudTooltip Text="@($"Biurko nr {desk.DeskNumber} — {(desk.IsAvailable ? "Dostępne" : "Zajęte")}")"
+                                            Arrow="true" Placement="Placement.Top">
+                                    <button type="button"
+                                            @onclick="async () => await PokazSzczegolyBiurka(desk.Id)"
+                                            style="background: transparent; border: none; cursor: pointer; padding: 0; outline: none;">
+                                        <MudIcon Icon="@(desk.IsAvailable? Icons.Material.Filled.RadioButtonChecked : Icons.Material.Filled.Cancel)"
+                                                 Color="@(desk.IsAvailable ? Color.Success : Color.Error)"
+                                                 Style="font-size: 24px; filter: drop-shadow(0px 0px 4px rgba(0,0,0,0.4));" />
+                                    </button>
+                                </MudTooltip>
+                            </div>
+                        }
+
+                        <!-- SALA KONFERENCYJNA -->
+                        @foreach (var room in rooms)
+                        {
+                            <div style="
+                                        position: absolute;
+                                        left: @(room.X_Coordinate)%;
+                                        top: @(room.Y_Coordinate)%;
+                                        transform: translate(-50%, -50%);
+                                        z-index: 8;">
+                                <MudTooltip Text="@room.Name" Arrow="true">
+                                    <button type="button"
+                                            @onclick="() => PokazSale(room.Id)"
+                                            style="background: transparent; border: none; cursor: pointer; padding: 0;">
+                                        <MudIcon Icon="@Icons.Material.Filled.MeetingRoom"
+                                                 Color="Color.Info"
+                                                 Style="font-size: 32px; filter: drop-shadow(0px 0px 4px rgba(0,0,0,0.4));" />
+                                    </button>
+                                </MudTooltip>
+                            </div>
+                        }
+
+                        <!-- BUDKI TELEFONICZNE -->
+                        @foreach (var booth in phoneBooths)
+                        {
+                            <div style="
+                                        position: absolute;
+                                        left: @(booth.X_Coordinate)%;
+                                        top: @(booth.Y_Coordinate)%;
+                                        transform: translate(-50%, -50%);
+                                        z-index: 8;">
+                                <MudTooltip Text="@booth.Name" Arrow="true">
+                                    <button type="button"
+                                            @onclick="() => PokazBudke(booth.Id)"
+                                            style="background: transparent; border: none; cursor: pointer; padding: 0;">
+                                        <MudIcon Icon="@Icons.Material.Filled.Call"
+                                                 Color="Color.Warning"
+                                                 Style="font-size: 28px; filter: drop-shadow(0px 0px 4px rgba(0,0,0,0.4));" />
+                                    </button>
+                                </MudTooltip>
+                            </div>
+                        }
+
+                    </div>
+                </MudPaper>
+            }
+            else
+            {
+                <div style="width: 100%; height: 400px; border: 2px dashed #BDBDBD; border-radius: 16px;"
+                     class="d-flex flex-column align-center justify-center text-muted">
+                    <MudIcon Icon="@Icons.Material.Filled.TouchApp" Size="Size.Large" Color="Color.Default" Class="mb-2" />
+                    <MudText Typo="Typo.h6" Color="Color.Secondary">Wybierz strefę biurową</MudText>
+                </div>
+            }
+
+        </MudItem>
+
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private List<Floor> floors = new();
+    private List<Desk> desks = new();
+    private List<Room> rooms = new();
+    private List<PhoneBooth> phoneBooths = new();
+
+    private int selectedFloorId = 0;
+    private DateTime? bookingDate = DateTime.Today;
+    private TimeSpan? startTime = new(8, 0, 0);
+    private TimeSpan? endTime = new(16, 0, 0);
+
+    private bool DisableWeekends(DateTime date)
+    {
+        return date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        floors = (await BookingService.GetFloorsAsync()).ToList();
+
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+
+        if (query.TryGetValue("floor", out var floorValue) && int.TryParse(floorValue, out var floorId))
+        {
+            selectedFloorId = floorId;
+        }
+
+        if (query.TryGetValue("date", out var dateValue) && DateTime.TryParse(dateValue, out var parsedDate))
+        {
+            bookingDate = parsedDate;
+        }
+
+        if (query.TryGetValue("start", out var startValue) && TimeSpan.TryParse(startValue, out var parsedStart))
+        {
+            startTime = parsedStart;
+        }
+
+        if (query.TryGetValue("end", out var endValue) && TimeSpan.TryParse(endValue, out var parsedEnd))
+        {
+            endTime = parsedEnd;
+        }
+
+        if (selectedFloorId > 0)
+        {
+            await OdswiezMape();
+        }
+    }
+
+    private async Task<bool> SprawdzCzyWolne(int deskId)
+    {
+        string date = bookingDate?.ToString("yyyy-MM-dd") ?? DateTime.Today.ToString("yyyy-MM-dd");
+
+        if (startTime == null || endTime == null)
+            return false;
+
+        return await BookingService.IsDeskAvailableAsync(
+            deskId,
+            date,
+            startTime.Value,
+            endTime.Value
+        );
+    }
+
+    
+       private async Task OdswiezMape()
+{
+    if (selectedFloorId == 0)
+    {
+        Snackbar.Add("Wybierz piętro.", Severity.Warning);
+        return;
+    }
+
+    if (bookingDate == null)
+    {
+        Snackbar.Add("Wybierz datę rezerwacji.", Severity.Warning);
+        return;
+    }
+
+    if (bookingDate.Value.Date < DateTime.Today)
+    {
+        Snackbar.Add("Nie można sprawdzać dostępności dla daty z przeszłości.", Severity.Warning);
+        return;
+    }
+
+    if (bookingDate.Value.DayOfWeek == DayOfWeek.Saturday || bookingDate.Value.DayOfWeek == DayOfWeek.Sunday)
+    {
+        Snackbar.Add("Rezerwacje są dostępne tylko od poniedziałku do piątku.", Severity.Warning);
+        return;
+    }
+
+    if (startTime == null || endTime == null)
+    {
+        Snackbar.Add("Uzupełnij godzinę rozpoczęcia i zakończenia.", Severity.Warning);
+        return;
+    }
+
+    if (startTime.Value < new TimeSpan(6, 0, 0))
+    {
+        Snackbar.Add("Rezerwacja może zaczynać się najwcześniej o 06:00.", Severity.Warning);
+        return;
+    }
+
+    if (endTime.Value > new TimeSpan(24, 0, 0))
+    {
+        Snackbar.Add("Rezerwacja może kończyć się najpóźniej o 24:00.", Severity.Warning);
+        return;
+    }
+
+    if (endTime.Value <= startTime.Value)
+    {
+        Snackbar.Add("Godzina zakończenia musi być późniejsza niż godzina rozpoczęcia.", Severity.Warning);
+        return;
+    }
+
+    desks = (await BookingService.GetDesksByFloorAsync(selectedFloorId)).ToList();
+    rooms = (await BookingService.GetRoomsByFloorAsync(selectedFloorId)).ToList();
+    phoneBooths = (await BookingService.GetPhoneBoothsByFloorAsync(selectedFloorId)).ToList();
+
+    foreach (var desk in desks)
+        desk.IsAvailable = await SprawdzCzyWolne(desk.Id);
+
+    StateHasChanged();
+}
+    
+
+
+    private async Task PokazSzczegolyBiurka(int deskId)
+    {
+        var desk = desks.FirstOrDefault(d => d.Id == deskId);
+
+        if (desk == null)
+        {
+            Snackbar.Add("Nie znaleziono biurka.", Severity.Error);
+            return;
+        }
+
+        string dateStr = bookingDate?.ToString("yyyy-MM-dd") ?? DateTime.Today.ToString("yyyy-MM-dd");
+        string startStr = startTime?.ToString(@"hh\:mm") ?? "08:00";
+        string endStr = endTime?.ToString(@"hh\:mm") ?? "16:00";
+
+        if (!desk.IsAvailable)
+        {
+            var bookings = await BookingService.GetBookingsForDeskAsync(deskId, dateStr);
+
+            var conflictingBookings = bookings
+                .Where(b =>
+                    startTime != null &&
+                    endTime != null &&
+                    startTime.Value < b.TimeTo &&
+                    endTime.Value > b.TimeFrom)
+                .ToList();
+
+            if (conflictingBookings.Any())
+            {
+                var info = string.Join(", ", conflictingBookings.Select(b =>
+            {
+                var employee = string.IsNullOrWhiteSpace(b.EmployeeName)
+                    ? $"Użytkownik #{b.UserId}"
+                    : b.EmployeeName;
+
+                return $"{b.TimeFrom:hh\\:mm} - {b.TimeTo:hh\\:mm}, {employee}";
+            }));
+
+                Snackbar.Add($"Biurko {desk.DeskNumber} jest zajęte: {info}", Severity.Warning);
+            }
+            else
+            {
+                Snackbar.Add($"Biurko {desk.DeskNumber} jest zajęte w wybranym terminie.", Severity.Warning);
+            }
+
+            return;
+        }
+
+        Navigation.NavigateTo($"/desk/{deskId}?floor={selectedFloorId}&date={dateStr}&start={startStr}&end={endStr}");
+    }
+    private void PokazSale(int roomId)
+{
+    var room = rooms.FirstOrDefault(r => r.Id == roomId);
+
+    if (room == null)
+    {
+        Snackbar.Add("Nie znaleziono sali.", Severity.Error);
+        return;
+    }
+
+        Navigation.NavigateTo($"/resource-booking/Room/{room.Id}/{Uri.EscapeDataString(room.Name)}?floor={selectedFloorId}");
+}
+    private void PokazBudke(int boothId)
+    {
+        var booth = phoneBooths.FirstOrDefault(b => b.Id == boothId);
+
+        if (booth == null)
+        {
+            Snackbar.Add("Nie znaleziono budki telefonicznej.", Severity.Error);
+            return;
+        }
+
+        Navigation.NavigateTo($"/resource-booking/PhoneBooth/{booth.Id}/{Uri.EscapeDataString(booth.Name)}?floor={selectedFloorId}");
+    }
+}

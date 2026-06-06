@@ -1,0 +1,68 @@
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.deps.json
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.dll
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.pdb
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Domain.dll
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Domain.pdb
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.csproj.AssemblyReference.cache
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.AssemblyInfoInputs.cache
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.AssemblyInfo.cs
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.csproj.CoreCompileInputs.cache
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBook.CCA3B768.Up2Date
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.dll
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\refint\DeskBooking.Application.dll
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.pdb
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\ref\DeskBooking.Application.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.deps.json
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.pdb
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Domain.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Domain.pdb
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.csproj.AssemblyReference.cache
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.AssemblyInfoInputs.cache
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.AssemblyInfo.cs
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.csproj.CoreCompileInputs.cache
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBook.CCA3B768.Up2Date
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\refint\DeskBooking.Application.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.pdb
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\ref\DeskBooking.Application.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.deps.json
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.pdb
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Domain.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Domain.pdb
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.csproj.AssemblyReference.cache
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.AssemblyInfoInputs.cache
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.AssemblyInfo.cs
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.csproj.CoreCompileInputs.cache
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBook.CCA3B768.Up2Date
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\refint\DeskBooking.Application.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.pdb
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\ref\DeskBooking.Application.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.deps.json
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Application.pdb
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Domain.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.Domain.pdb
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\bin\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.csproj.AssemblyReference.cache
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.AssemblyInfoInputs.cache
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.AssemblyInfo.cs
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.csproj.CoreCompileInputs.cache
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBook.CCA3B768.Up2Date
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\refint\DeskBooking.Application.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\DeskBooking.Application.pdb
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.Application\DeskBooking.Application\obj\Debug\net6.0\ref\DeskBooking.Application.dll

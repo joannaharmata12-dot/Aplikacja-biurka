@@ -1,0 +1,44 @@
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.deps.json
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.AssemblyInfoInputs.cache
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.AssemblyInfo.cs
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.csproj.CoreCompileInputs.cache
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\refint\DeskBooking.SharedKernel.dll
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Users\spidi\Desktop\BIURKA\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\ref\DeskBooking.SharedKernel.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.deps.json
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.AssemblyInfoInputs.cache
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.AssemblyInfo.cs
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.csproj.CoreCompileInputs.cache
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\refint\DeskBooking.SharedKernel.dll
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Mac\Home\Documents\inf i ekonometria\Semestr2\programowanie aplikacji biznesowych\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\ref\DeskBooking.SharedKernel.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.deps.json
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.AssemblyInfoInputs.cache
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.AssemblyInfo.cs
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.csproj.CoreCompileInputs.cache
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\refint\DeskBooking.SharedKernel.dll
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Users\Dorka\Downloads\projekt2 (2)\projekt2\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\ref\DeskBooking.SharedKernel.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.deps.json
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\bin\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.AssemblyInfoInputs.cache
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.AssemblyInfo.cs
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.csproj.CoreCompileInputs.cache
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\refint\DeskBooking.SharedKernel.dll
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\DeskBooking.SharedKernel.pdb
+C:\Users\spidi\Desktop\Projekt_zaliczeniowy_aplikacje_Ptak_Harmata_Pierzchała\DeskBooking.SharedKernel\DeskBooking.SharedKernel\obj\Debug\net6.0\ref\DeskBooking.SharedKernel.dll

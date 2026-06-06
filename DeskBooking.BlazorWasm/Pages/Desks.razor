@@ -1,0 +1,40 @@
+﻿@page "/desks"
+@using DeskBooking.Domain.Entities
+
+<h3>Lista biurek</h3>
+
+<p>Przykładowa lista stanowisk dostępnych w systemie.</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Numer biurka</th>
+            <th>Piętro</th>
+            <th>Akcja</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var desk in desks)
+        {
+            <tr>
+                <td>@desk.Id</td>
+                <td>@desk.DeskNumber</td>
+                <td>@desk.FloorId</td>
+                <td>
+                    <a href="/desk-wasm/@desk.Id">Szczegóły</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Desk> desks = new()
+    {
+        new Desk { Id = 1001, DeskNumber = "A1", FloorId = 1 },
+        new Desk { Id = 1002, DeskNumber = "A2", FloorId = 1 },
+        new Desk { Id = 2001, DeskNumber = "A1", FloorId = 2 },
+        new Desk { Id = 3001, DeskNumber = "A1", FloorId = 3 }
+    };
+}

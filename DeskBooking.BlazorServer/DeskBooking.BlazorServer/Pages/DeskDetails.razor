@@ -1,0 +1,356 @@
+﻿@page "/desk/{Id:int}"
+@using DeskBooking.BlazorServer.Models
+@using Microsoft.AspNetCore.WebUtilities
+@inject DeskBookingService BookingService
+@inject ISnackbar Snackbar
+@inject NavigationManager Navigation
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-6">
+
+    <MudPaper Elevation="0" Class="d-flex align-center justify-space-between pa-4 mb-4" Style="background: transparent;">
+        <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Filled.ArrowBack" Color="Color.Primary" OnClick="Powrot">
+            Powrót do planu piętra
+        </MudButton>
+        <MudBreadcrumbs Items="_breadcrumbs" />
+    </MudPaper>
+
+    <MudGrid>
+        @* LEWA KOLUMNA: Parametry Lokalizacji i Lista Istniejących Rezerwacji *@
+        <MudItem xs="12" md="5">
+            <MudStack Spacing="4">
+                @* Karta Biurka *@
+                <MudCard Elevation="4" Style="border-radius: 16px; overflow: hidden;">
+                    <div style="position: relative; background: #594ae2; height: 120px;" Class="d-flex align-center justify-center text-white">
+                        <div style="text-align: center;">
+                            <MudText Typo="Typo.h4" Style="font-weight: 700;">BIURKO @desk?.DeskNumber</MudText>
+                            <MudText Typo="Typo.subtitle1">Identyfikator stanowiska: #@Id</MudText>
+                        </div>
+                    </div>
+
+                    <MudCardContent Class="pt-6 px-6">
+                        <MudText Typo="Typo.h6" Class="mb-3" Color="Color.Primary">Parametry Lokalizacji</MudText>
+
+                        <div class="d-flex align-center mb-3">
+                            <MudIcon Icon="@Icons.Material.Filled.Business" Color="Color.Default" Class="mr-3" />
+                            <div>
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">Budynek</MudText>
+                                <MudText Typo="Typo.body1" Style="font-weight: 500;">@BuildingName</MudText>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-center mb-3">
+                            <MudIcon Icon="@Icons.Material.Filled.Layers" Color="Color.Default" Class="mr-3" />
+                            <div>
+                                <MudText Typo="Typo.caption" Color="Color.Secondary">Piętro / Strefa</MudText>
+                                <MudText Typo="Typo.body1" Style="font-weight: 500;">@FloorName</MudText>
+                            </div>
+                        </div>
+                    </MudCardContent>
+                </MudCard>
+
+                @* KARTA: Harmonogram zajętości na ten dzień *@
+                <MudCard Elevation="4" Style="border-radius: 16px;" Class="pa-4">
+                    <MudText Typo="Typo.h6" Color="Color.Primary" Class="mb-2" Style="font-weight:600;">
+                        Harmonogram dnia: @WybranaData
+                    </MudText>
+                    <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-4">
+                        Zobacz istniejące rezerwacje, aby uniknąć nakładania się godzin.
+                    </MudText>
+
+                    @if (istniejaceRezerwacje == null || !istniejaceRezerwacje.Any())
+                    {
+                        <div class="pa-4 text-center rounded-lg" style="background: #E8F5E9; border: 1px solid #C8E6C9;">
+                            <MudText Color="Color.Success" Style="font-weight:500;">
+                                🎉 Brak rezerwacji. Biurko wolne cały dzień!
+                            </MudText>
+                        </div>
+                    }
+                    else
+                    {
+                        <MudSimpleTable Style="overflow-x: auto;" Dense="true" Striped="true">
+                            <thead>
+                                <tr>
+                                    <th>Pracownik</th>
+                                    <th>Czas rezerwacji</th>
+                                    <th>Akcja</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var rez in istniejaceRezerwacje)
+                                {
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                @(string.IsNullOrWhiteSpace(rez.EmployeeName)
+                                                                                        ? GetUserDisplayName(rez.UserId)
+                                                                                        : rez.EmployeeName)
+                                            </strong>
+                                        </td>
+                                        <td>
+                                            <MudChip Color="Color.Error" Size="Size.Small" Style="font-weight:bold;">
+                                                @rez.TimeFrom.ToString(@"hh\:mm") - @rez.TimeTo.ToString(@"hh\:mm")
+                                            </MudChip>
+                                        </td>
+                                        <td>
+                                            <MudButton Variant="Variant.Text"
+                                                       Color="Color.Error"
+                                                       Size="Size.Small"
+                                                       OnClick="@(() => CancelBooking(rez.Id))">
+                                                Anuluj
+                                            </MudButton>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </MudSimpleTable>
+                    }
+                </MudCard>
+            </MudStack>
+        </MudItem>
+
+        @* PRAWA KOLUMNA: Formularz rezerwacji *@
+        <MudItem xs="12" md="7">
+            <MudCard Elevation="4" Style="border-radius: 16px; height: 100%;" Class="pa-4">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5" Style="font-weight: 600;">Formularz Nowej Rezerwacji</MudText>
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">Wprowadź swoje ramy czasowe, aby zablokować stanowisko.</MudText>
+                    </CardHeaderContent>
+                </MudCardHeader>
+
+                <MudCardContent Class="px-4">
+                    <EditForm Model="@formModel" OnValidSubmit="HandleValidSubmit">
+                        <DataAnnotationsValidator />
+
+                        <MudGrid>
+                            <MudItem xs="12">
+                                <MudTextField Label="Imię i Nazwisko pracownika" @bind-Value="formModel.EmployeeName" For="@(() => formModel.EmployeeName)" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Person" />
+                            </MudItem>
+
+                            <MudItem xs="12">
+                                <MudTextField Label="Adres E-mail (służbowy)" @bind-Value="formModel.EmployeeEmail" For="@(() => formModel.EmployeeEmail)" Variant="Variant.Outlined" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Email" />
+                            </MudItem>
+
+                            <MudItem xs="12" sm="6">
+                                <MudTimePicker Label="Rezerwacja od godziny" @bind-Time="formModel.StartTime" For="@(() => formModel.StartTime)" Variant="Variant.Outlined" Editable="true" />
+                            </MudItem>
+
+                            <MudItem xs="12" sm="6">
+                                <MudTimePicker Label="Rezerwacja do godziny" @bind-Time="formModel.EndTime" For="@(() => formModel.EndTime)" Variant="Variant.Outlined" Editable="true" />
+                            </MudItem>
+
+                            <MudItem xs="12">
+                                <MudTextField Label="Powód rezerwacji / Projekt / Notatka" @bind-Value="formModel.Note" For="@(() => formModel.Note)" Variant="Variant.Outlined" Lines="3" />
+                            </MudItem>
+
+                            <MudItem xs="12" Class="mt-2">
+                                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" FullWidth="true" Style="border-radius: 8px; font-weight: bold; height: 50px;">
+                                    POTWIERDŹ REZERWACJĘ BIURKA
+                                </MudButton>
+                            </MudItem>
+                        </MudGrid>
+                    </EditForm>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private DeskBooking.Domain.Entities.Desk? desk;
+    private BookingForm formModel = new();
+    private string WybranaData { get; set; } = string.Empty;
+    private int FloorId { get; set; } = 1;
+    private string FloorName { get; set; } = string.Empty;
+    private string BuildingName { get; set; } = "Budynek Główny (A)";
+
+    // Lista symulująca pobrane z bazy rezerwacje dla tego stołu
+    private List<DeskBooking.Domain.Entities.Booking> istniejaceRezerwacje = new();
+    private List<BreadcrumbItem> _breadcrumbs = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+        var query = QueryHelpers.ParseQuery(uri.Query);
+
+        WybranaData = query.TryGetValue("date", out var dateValue) ? dateValue.ToString() : DateTime.Today.ToString("yyyy-MM-dd");
+        if (query.TryGetValue("floor", out var floorValue) && int.TryParse(floorValue, out var parsedFloorId))
+        {
+            FloorId = parsedFloorId;
+        }
+
+        // Odbieramy przesłane godziny i ustawiamy je automatycznie w formularzu
+        if (query.TryGetValue("start", out var startVal) && TimeSpan.TryParse(startVal, out var sTime)) formModel.StartTime = sTime;
+        if (query.TryGetValue("end", out var endVal) && TimeSpan.TryParse(endVal, out var eTime)) formModel.EndTime = eTime;
+
+        var allDesks = await BookingService.GetDesksByFloorAsync(FloorId);
+        desk = allDesks.FirstOrDefault(d => d.Id == Id);
+        var floors = await BookingService.GetFloorsAsync();
+        var currentFloor = floors.FirstOrDefault(f => f.Id == FloorId);
+
+        if (currentFloor != null)
+        {
+            FloorName = currentFloor.Name;
+            BuildingName = string.IsNullOrWhiteSpace(currentFloor.BuildingName)
+                ? "Budynek Główny (A)"
+                : currentFloor.BuildingName;
+        }
+        // DANE TESTOWE HARMONOGRAMU
+        
+        var bookings = await BookingService.GetBookingsForDeskAsync(Id, WybranaData);
+        istniejaceRezerwacje = bookings.ToList();
+        await LoadUserNames();
+
+        _breadcrumbs = new List<BreadcrumbItem>
+        {
+            new BreadcrumbItem("Mapa Główna", href: "/"),
+            new BreadcrumbItem($"Biurko {desk?.DeskNumber ?? Id.ToString()}", href: null, disabled: true)
+        };
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            if (formModel.StartTime == null || formModel.EndTime == null)
+            {
+                Snackbar.Add("Proszę uzupełnić godzinę rozpoczęcia i zakończenia rezerwacji.", Severity.Warning);
+                return;
+            }
+
+            if (!DateTime.TryParse(WybranaData, out var selectedDate))
+            {
+                Snackbar.Add("Nieprawidłowa data rezerwacji.", Severity.Error);
+                return;
+            }
+
+            if (selectedDate.Date < DateTime.Today)
+            {
+                Snackbar.Add("Nie można rezerwować biurka w przeszłości.", Severity.Warning);
+                return;
+            }
+
+            if (selectedDate.DayOfWeek == DayOfWeek.Saturday || selectedDate.DayOfWeek == DayOfWeek.Sunday)
+            {
+                Snackbar.Add("Nie można rezerwować biurka w weekend.", Severity.Warning);
+                return;
+            }
+
+            var start = formModel.StartTime.Value;
+            var end = formModel.EndTime.Value;
+
+            if (start < new TimeSpan(6, 0, 0))
+            {
+                Snackbar.Add("Rezerwacja może zaczynać się najwcześniej o 06:00.", Severity.Warning);
+                return;
+            }
+
+            if (end > new TimeSpan(24, 0, 0))
+            {
+                Snackbar.Add("Rezerwacja może kończyć się najpóźniej o 24:00.", Severity.Warning);
+                return;
+            }
+
+            if (end <= start)
+            {
+                Snackbar.Add("Godzina zakończenia musi być późniejsza niż godzina rozpoczęcia.", Severity.Warning);
+                return;
+            }
+
+            var isAvailable = await BookingService.IsDeskAvailableAsync(Id, WybranaData, start, end);
+
+            if (!isAvailable)
+            {
+                Snackbar.Add("To biurko jest już zajęte w wybranych godzinach.", Severity.Error);
+                return;
+            }
+
+            bool success = await BookingService.BookDeskAsync(
+                Id,
+                1,
+                formModel.EmployeeName,
+                formModel.EmployeeEmail,
+                formModel.Note,
+                WybranaData,
+                start,
+                end);
+
+            if (success)
+            {
+                Snackbar.Add("Rezerwacja została utworzona.", Severity.Success);
+
+                var bookings = await BookingService.GetBookingsForDeskAsync(Id, WybranaData);
+                istniejaceRezerwacje = bookings.ToList();
+
+                await LoadUserNames();
+
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add("Nie udało się utworzyć rezerwacji.", Severity.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            Snackbar.Add($"Błąd zapisu: {ex.Message}", Severity.Error);
+        }
+    }
+    private Dictionary<int, string> userNames = new();
+
+    private async Task LoadUserNames()
+    {
+        userNames.Clear();
+
+        foreach (var booking in istniejaceRezerwacje)
+        {
+            if (!userNames.ContainsKey(booking.UserId))
+            {
+                var user = await BookingService.GetUserByIdAsync(booking.UserId);
+
+                if (user != null)
+                    userNames[booking.UserId] = $"{user.FirstName} {user.LastName}";
+                else
+                    userNames[booking.UserId] = $"Użytkownik #{booking.UserId}";
+            }
+        }
+    }
+
+    private string GetUserDisplayName(int userId)
+    {
+        return userNames.TryGetValue(userId, out var name)
+            ? name
+            : $"Użytkownik #{userId}";
+    }
+    private async Task CancelBooking(int bookingId)
+    {
+        var success = await BookingService.CancelBookingAsync(bookingId);
+
+        if (success)
+        {
+            Snackbar.Add("Rezerwacja została anulowana.", Severity.Success);
+
+            var bookings = await BookingService.GetBookingsForDeskAsync(Id, WybranaData);
+            istniejaceRezerwacje = bookings.ToList();
+
+            await LoadUserNames();
+
+            StateHasChanged();
+        }
+        else
+        {
+            Snackbar.Add("Nie udało się anulować rezerwacji.", Severity.Error);
+        }
+    }
+    private void Powrot()
+    {
+        var floorId = FloorId;
+
+        var start = formModel.StartTime?.ToString(@"hh\:mm") ?? "08:00";
+        var end = formModel.EndTime?.ToString(@"hh\:mm") ?? "16:00";
+
+        Navigation.NavigateTo($"/?floor={floorId}&date={WybranaData}&start={start}&end={end}");
+    }
+
+}
